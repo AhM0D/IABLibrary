@@ -1,0 +1,64 @@
+
+buildscript {
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.5.2'
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+}
+
+
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.2"
+
+    defaultConfig {
+        minSdkVersion 9
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+    }
+
+    compileOptions
+            {
+                sourceCompatibility JavaVersion.VERSION_1_7
+                targetCompatibility JavaVersion.VERSION_1_7
+            }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+}
+
+dependencies {
+    api fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "androidx.annotation:annotation:1.1.0"
+    // To use the Java-compatible @Experimental API annotation
+    implementation "androidx.annotation:annotation-experimental:1.0.0"
+}
+
+task deleteJar(type : Delete){
+    delete 'MyketIAB.jar'
+}
+
+task createJar(type : Copy){
+    from ('build/intermediates/packaged-classes/release/')
+    into ('build')
+    include ('classes.jar')
+    rename ('classes.jar','MyketIAB.jar')
+}
+
+createJar.dependsOn(deleteJar, build)
