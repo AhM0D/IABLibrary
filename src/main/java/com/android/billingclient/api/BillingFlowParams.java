@@ -1,10 +1,11 @@
 package com.android.billingclient.api;
 
+import org.json.JSONException;
+
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.Arrays;
-import org.json.JSONException;
 
 public class BillingFlowParams {
     public static final String EXTRA_PARAM_CHILD_DIRECTED = "childDirected";
@@ -124,6 +125,11 @@ public class BillingFlowParams {
         }
 
         public Builder setOldSku(String oldSku) {
+            this.mOldSku = oldSku;
+            return this;
+        }
+
+        public Builder setOldSku(String oldSku, String oldPurchase) {
             this.mOldSku = oldSku;
             return this;
         }

@@ -16,7 +16,7 @@ import java.util.List;
 
 public class Purchase {
     private String mOriginalJson;
-    private final JSONObject mParsedJson = new JSONObject(this.mOriginalJson);
+    private final JSONObject mParsedJson;
     private final String mSignature;
 
     @Retention(RetentionPolicy.SOURCE)
@@ -29,6 +29,7 @@ public class Purchase {
     public Purchase(String jsonPurchaseInfo, String signature) throws JSONException {
         this.mOriginalJson = jsonPurchaseInfo;
         this.mSignature = signature;
+        mParsedJson = new JSONObject(this.mOriginalJson);
     }
 
     public String getOrderId() {
